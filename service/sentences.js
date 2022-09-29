@@ -83,7 +83,7 @@ const insertLinks = async (bulk) => {
 const insertSentenceWithAudio = async (arr) => {
     try {
         let sentencesWithAudio = bulk.map(row => {
-            let arr = row.split("\t")
+            let arr = row[0].split("\t")
             return {
                 sentenceID: parseInt(arr[0]),
                 attributionURL: arr[3],
