@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  db:
+    image: mongo:latest
+    container_name: db
+    restart: unless-stopped
+    volumes:  
+      - ./data/db:/data/db  
+    ports:  
+      - 27017:27017    
+    networks:
+      - backend
+  api:
+    image: node:12-alpine
+    container_name: api
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    working_dir: /usr/src/app
+    command: npm install && npm start
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - backend
+networks: 
+  backend:
